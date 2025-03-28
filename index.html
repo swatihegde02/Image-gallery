@@ -1,0 +1,134 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <link rel="stylesheet" href="style.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.7.2/css/all.min.css" integrity="sha512-Evv84Mr4kqVGRNSgIGL/F/aIDqQb7xQ2vcrdIwxfjThSH8CSR7PBEakCr51Ck+w+/U6swU2Im1vVX0SVk9ABhg==" crossorigin="anonymous" referrerpolicy="no-referrer" />
+</head>
+<body>
+    <section class="search">
+        <img src="https://images.unsplash.com/photo-1484538162795-891443f6074f?q=80&w=1974&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D" alt="searchbar">
+            <div class="navbar">
+            <div class="logo"><h1>photo gallery</h1></div>
+        <div class="category">
+            <button class="btn1">Explore</button>
+            <button class="btn2">Login</button>
+        </div>
+    </div>
+    <div class="content">
+            <h1>Search and Explore The Best Images For Free. </h1>
+            <div class="searchbox">
+                <form action="">
+                    <input type="text" name="search" id="srch" placeholder="Search for photos">
+                    <button type="submit"><i class="fa fa-search"></i></button>
+                </form>
+            </div>
+        </div>
+    </section>
+    <section id="items">
+        <div class="container">
+            <!-- menu link -->
+            <div class="items-links">
+                <span class="item-link menu-active" data-name="all">All Photos</span>
+                <span class="item-link" data-name="animals">Animals</span>
+                <span class="item-link" data-name="birds">Birds</span>
+                <span class="item-link" data-name="places">Places</span>
+            </div>
+
+            <!-- images -->
+             <div class="gallery">
+             <div class="images" data-name="animals">
+                <img src="https://images.pexels.com/photos/1054655/pexels-photo-1054655.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=2" alt="">
+                <div class="overlay">
+                    <h4>Elephant</h4>
+                </div>
+            </div>
+             <div class="images" data-name="birds">
+                <img src="https://images.pexels.com/photos/17819450/pexels-photo-17819450/free-photo-of-close-up-of-bee-hummingbird.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=2" alt="">
+                <div class="overlay">
+                    <h4>Humming Bird</h4>
+                </div>
+            </div>
+             <div class="images" data-name="places">
+                <img src="https://images.unsplash.com/photo-1590766940554-634a7ed41450?q=80&w=1998&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D" alt="">
+                <div class="overlay">
+                    <h4>Mysore Palace</h4>
+                </div>
+            </div>
+             <div class="images" data-name="animals">
+                <img src="https://images.pexels.com/photos/47547/squirrel-animal-cute-rodents-47547.jpeg" alt="">
+                <div class="overlay">
+                    <h4>Squirrel</h4>
+                </div>
+            </div>
+             <div class="images" data-name="birds">
+                <img src="https://images.pexels.com/photos/36450/flamingo-bird-pink-nature.jpg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=20" alt="">
+                <div class="overlay">
+                    <h4>Flamingo</h4>
+                </div>
+            </div>
+             <div class="images" data-name="places">
+                <img src="https://images.unsplash.com/photo-1622117655866-8b233395581a?q=80&w=1974&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D" alt="">
+                <div class="overlay">
+                    <h4>Jog Falls</h4>
+                </div>
+            </div>
+            <div class="images" data-name="animals">
+                <img src="https://images.unsplash.com/photo-1567976890923-c512a6989fde?q=80&w=2080&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D" alt="">
+                <div class="overlay">
+                    <h4>Deer</h4>
+                </div>
+            </div>
+             <div class="images" data-name="birds">
+                <img src="https://images.pexels.com/photos/30174880/pexels-photo-30174880/free-photo-of-colorful-kingfishers-perched-on-a-branch.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=2" alt="">
+                <div class="overlay">
+                    <h4>Kingfisher</h4>
+                </div>
+            </div>
+            
+             <div class="images" data-name="places">
+                <img src="https://images.unsplash.com/photo-1601815264039-67c8ba1a7f98?q=80&w=1836&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D" alt="">
+                <div class="overlay">
+                    <h4>Konark Sun Temple</h4>
+                </div>
+            </div>
+            <div class="images" data-name="animals">
+                <img src="https://images.pexels.com/photos/1108099/pexels-photo-1108099.jpeg" alt="">
+                <div class="overlay">
+                    <h4>Dogs</h4>
+                </div>
+            </div>
+            <div class="images" data-name="birds">
+                <img src="https://images.pexels.com/photos/11341755/pexels-photo-11341755.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=2" alt="">
+                <div class="overlay">
+                    <h4>Peacock</h4>
+                </div>
+            </div>
+            <div class="images" data-name="places">
+                <img src="https://images.unsplash.com/photo-1585506942812-e72b29cef752?q=80&w=1928&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D" alt="">
+                <div class="overlay">
+                    <h4>Taj Mahal</h4>
+                </div>
+            </div>
+        </div>
+    </div>
+    </section>
+
+
+    <div id="popupImg" class="popup-img">
+        <span id="closePopup">&times;</span>
+        <img id="popupImage" src="" alt="elephant">
+        <div class="popup-footer">
+            <p id="popupImageDescription"></p>
+        <span><i  id="popupLikeButton" fill="red" class="fa-solid fa-heart"></i></span>
+        </div>
+    </div>
+
+   
+    <script src="./script.js"></script>
+    <script src="./script2.js"></script>
+
+</body>
+</html>
