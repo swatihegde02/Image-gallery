@@ -1,0 +1,65 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Login page</title>
+    <link rel="stylesheet" href="login.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.7.2/css/all.min.css" integrity="sha512-Evv84Mr4kqVGRNSgIGL/F/aIDqQb7xQ2vcrdIwxfjThSH8CSR7PBEakCr51Ck+w+/U6swU2Im1vVX0SVk9ABhg==" crossorigin="anonymous" referrerpolicy="no-referrer" />
+
+</head>
+<body>
+    <div class="wrapper">
+       <a href="/index.html"> <i class="fa-solid fa-xmark form-close"></i></a>
+        <form action="#" class="login_form">
+            <h1>Login</h1>
+            <div class="inputbox">
+                <input type="text" placeholder="Username" required>
+                <i class="fa-solid fa-user"></i>
+            </div>
+            <div class="inputbox">
+                <input type="password" placeholder="Password" required>
+                <i class="fa-solid fa-lock"></i>
+            </div>
+            
+            <div class="remember-forgot">
+                <label><input type="checkbox">Remember Me</label>
+                <a href="#">Forgot Password?</a>
+            </div>
+            <button type="submit" class="logbtn">Login</button>
+
+            <div class="login_signup">Don't have an account? <a href="#" id="signup">Signup</a></div>
+        </form>
+
+
+        <!-- Signup form -->
+
+        <form action="#" class="signup_form">
+            <h1>Signup</h1>
+            <div class="inputbox">
+                <input type="text" placeholder="Username" required>
+                <i class="fa-solid fa-user"></i>
+            </div>
+            <div class="inputbox">
+                <input type="password" placeholder="Create Password" required>
+                <i class="fa-solid fa-lock"></i>
+            </div>
+
+            <div class="inputbox">
+                <input type="password" placeholder="Confirm Password" required>
+                <i class="fa-solid fa-lock"></i>
+            </div>
+            
+            <div class="remember-forgot">
+                <label><input type="checkbox">Remember Me</label>
+                <a href="#">Forgot Password?</a>
+            </div>
+            <button type="submit" class="logbtn">Signup</button>
+
+            <div class="login_signup">Already have an account? <a href="#" id="login">Login</a></div>
+        </form>
+    </div>
+
+    <script src="login.js"></script>
+</body>
+</html>
