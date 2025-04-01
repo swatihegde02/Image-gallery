@@ -26,8 +26,8 @@ signupForm.addEventListener('submit', (e) => {
     e.preventDefault();  // Prevent form submission
 
     const username = signupForm.querySelector('input[type="text"]').value;
-    const password = signupForm.querySelector('input[type="password"]:nth-child(2)').value;
-    const confirmPassword = signupForm.querySelector('input[type="password"]:nth-child(3)').value;
+    const password = signupForm.querySelector("#sign-up-password").value;
+const confirmPassword = signupForm.querySelector("#sign-up-confirm-password").value;
     const passwordMismatchMessage = document.getElementById('password-mismatch-message');
 
     // Clear any previous error message
@@ -94,6 +94,8 @@ loginForm.addEventListener('submit', (e) => {
     // Check if username and password match stored details
     if (username === storedUsername && password === storedPassword) {
         alert('Login successful!');
+        const currentPath = window.location.pathname.split('/').slice(0, -1).join('/');
+        window.location.href = `${window.location.origin}${currentPath}/index.html`;
     } else {
         alert('Incorrect username or password!');
     }

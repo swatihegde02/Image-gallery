@@ -11,7 +11,7 @@ const likedContent = {};
 // When an image is clicked, show the popup with the larger image
 galleryItems.forEach((item) => {
   item.addEventListener("click", () => {
-    const imgSrc = item.src; // Get the clicked image's source
+    const imgSrc = imgElement.src; // Get the clicked image's source
     popupImage.src = imgSrc; // Set the popup image's source to the clicked image
     popupContainer.style.display = "flex"; // Show the popup
     popupImageDesc.innerHTML =
