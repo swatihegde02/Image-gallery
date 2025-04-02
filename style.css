@@ -37,6 +37,7 @@
     z-index: 2;
     position:relative;
     color:#fff;
+    padding-top: 30px;
 }
 
 .logo{
@@ -70,10 +71,12 @@
     font-size:18px;
     font-weight: 500;
     cursor: pointer;
+    text-decoration: none;
     transition: .4s ease;
 }
 
-.search button:hover{
+.search button:hover,
+.search a:hover{
     background: #007bff;
     color:#fff;
 }
