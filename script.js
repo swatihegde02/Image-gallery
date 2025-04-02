@@ -70,6 +70,7 @@ popupContainer.addEventListener("click", (event) => {
 // // Check if token exists in localStorage
 const token = localStorage.getItem("token");
 const authButtons = document.getElementById("auth-buttons");
+const tabs = document.getElementById("tabs");
 
 if (token) {
   // If token exists, show "Create Post" button
@@ -77,15 +78,26 @@ if (token) {
       <a href="create-post.html" class="btn2" style="cursor: pointer">Create Post</a>
       <button class="btn2" id="logout">Logout</button>
     `;
+
+  if (!document.querySelector('[data-name="posts"]')) {
+    tabs.innerHTML += `
+        <span class="item-link" data-name="posts">Posts</span>
+        <span class="item-link" data-name="my-posts">My Posts</span>
+      `;
+  }
 } else {
   // If no token, show "Login" button
   authButtons.innerHTML = `
       <a href="login.html" class="btn2" style="cursor: pointer">Login</a>
     `;
+
+  document
+    .querySelectorAll('[data-name="posts"], [data-name="my-posts"]')
+    .forEach((tab) => tab.remove());
 }
 
 document.getElementById("logout").addEventListener("click", (event) => {
-  localStorage.clear();
+  localStorage.removeItem("token");
 
   const currentPath = window.location.pathname
     .split("/")

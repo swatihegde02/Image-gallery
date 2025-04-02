@@ -1,41 +1,119 @@
 <!DOCTYPE html>
 <html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Document</title>
-    <link rel="stylesheet" href="create-post.css">
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.7.2/css/all.min.css" integrity="sha512-Evv84Mr4kqVGRNSgIGL/F/aIDqQb7xQ2vcrdIwxfjThSH8CSR7PBEakCr51Ck+w+/U6swU2Im1vVX0SVk9ABhg==" crossorigin="anonymous" referrerpolicy="no-referrer" />
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Create Post</title>
+    <link rel="stylesheet" href="create-post.css" />
+    <link
+      rel="stylesheet"
+      href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.7.2/css/all.min.css"
+      integrity="sha512-Evv84Mr4kqVGRNSgIGL/F/aIDqQb7xQ2vcrdIwxfjThSH8CSR7PBEakCr51Ck+w+/U6swU2Im1vVX0SVk9ABhg=="
+      crossorigin="anonymous"
+      referrerpolicy="no-referrer"
+    />
     <script src="./config.js"></script>
-
-</head>
-<body>
-    <div class="container" id="imgbox">
-        <input type="file" accept="image/*" name="image" id="file" style="display: none;"onchange="loadFile(event)">
+  </head>
+  <body>
+    <form id="postForm">
+      <div class="container" id="imgbox">
+        <input
+          type="file"
+          accept="image/*"
+          name="image"
+          id="file"
+          style="display: none"
+          required
+        />
         <label for="file"><i class="fa-solid fa-cloud-arrow-up"></i></label>
-    </div>
-    <div class="description">
-    <div class="desc">
-        <input type="text" id="text-box" placeholder="Write the category"></input>
-    </div>
-    <div class="desc">
-        <input type="text" id="text-box" placeholder="Write the name"></input>
-    </div>
-    <div class="desc">
-        <input type="text" id="text-box" placeholder="Write a description"></input>
-    </div>
-    <div class="btnupload">
-      <button class="upload">Upload</button>
-    </div>
-</div>
+      </div>
 
+      <div class="description">
+        <div class="desc">
+          <input
+            type="text"
+            id="category"
+            name="category"
+            placeholder="Write the category"
+            required
+          />
+        </div>
+        <div class="desc">
+          <input
+            type="text"
+            id="name"
+            name="name"
+            placeholder="Write the name"
+            required
+          />
+        </div>
+        <div class="desc">
+          <input
+            type="text"
+            id="description"
+            name="description"
+            placeholder="Write a description"
+            required
+          />
+        </div>
+        <div class="btnupload">
+          <button type="submit" class="upload">Upload</button>
+        </div>
+      </div>
+    </form>
 
-<script>
-    var imgbox = document.getElementById("imgbox");
+    <script>
+      const imgbox = document.getElementById("imgbox");
+      const fileInput = document.getElementById("file");
+      const postForm = document.getElementById("postForm");
 
-    var loadFile = function(event){
-        imgbox.style.backgroundImage = "url(" +URL.createObjectURL(event.target.files[0])+ ")";
-    }
-</script>
-</body>
+      // Show preview of uploaded image
+      fileInput.addEventListener("change", function (event) {
+        const file = event.target.files[0];
+        if (file) {
+          imgbox.style.backgroundImage =
+            "url(" + URL.createObjectURL(file) + ")";
+        }
+      });
+
+      // Handle form submission
+      // Handle form submission
+      postForm.addEventListener("submit", async (event) => {
+        event.preventDefault(); // Stop form from refreshing the page
+
+        const formData = new FormData(postForm);
+        const token = localStorage.getItem("token"); // Get token for authentication
+
+        try {
+          const response = await fetch(`${CONFIG.SERVER_URL}/posts`, {
+            method: "POST",
+            headers: {
+              Authorization: `Bearer ${token}`, // Attach token if needed
+            },
+            body: formData, // Send form data including image
+          });
+
+          const data = await response.json();
+
+          if (response.ok) {
+            console.log("Post uploaded successfully!", data);
+
+            // Reset the form & image preview
+            postForm.reset();
+            imgbox.style.backgroundImage = "";
+
+            // Redirect to index.html in the same directory
+            const newPage = new URL("index.html", window.location.href);
+            console.log("Redirecting to:", newPage.href);
+            window.location.href = newPage.href;
+          } else {
+            alert("Error: " + (data.error || "Unknown error"));
+          }
+        } catch (error) {
+          console.error("Upload error:", error);
+          alert("Something went wrong!");
+        }
+      });
+    </script>
+  </body>
 </html>
