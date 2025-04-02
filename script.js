@@ -8,27 +8,6 @@ const popupLikeButton = document.getElementById("popupLikeButton");
 const galleryItems = document.querySelectorAll(".images img");
 const likedContent = {};
 
-let filterItem = document.querySelector(".items-links");
-let filterImages = document.querySelectorAll(".images");
-
-window.addEventListener("load", () => {
-  filterItem.addEventListener("click", (selectedItem) => {
-    if (selectedItem.target.classList.contains("item-link")) {
-      document.querySelector(".menu-active").classList.remove("menu-active");
-      selectedItem.target.classList.add("menu-active");
-      let filterName = selectedItem.target.getAttribute("data-name");
-      filterImages.forEach((image) => {
-        let filterImages = image.getAttribute("data-name");
-        if (filterImages == filterName || filterName == "all") {
-          image.style.display = "block";
-        } else {
-          image.style.display = "none";
-        }
-      });
-    }
-  });
-});
-
 // When an image is clicked, show the popup with the larger image
 galleryItems.forEach((item) => {
   item.addEventListener("click", () => {
@@ -70,7 +49,6 @@ popupContainer.addEventListener("click", (event) => {
 // // Check if token exists in localStorage
 const token = localStorage.getItem("token");
 const authButtons = document.getElementById("auth-buttons");
-const tabs = document.getElementById("tabs");
 
 if (token) {
   // If token exists, show "Create Post" button
@@ -78,22 +56,11 @@ if (token) {
       <a href="create-post.html" class="btn2" style="cursor: pointer">Create Post</a>
       <button class="btn2" id="logout">Logout</button>
     `;
-
-  if (!document.querySelector('[data-name="posts"]')) {
-    tabs.innerHTML += `
-        <span class="item-link" data-name="posts">Posts</span>
-        <span class="item-link" data-name="my-posts">My Posts</span>
-      `;
-  }
 } else {
   // If no token, show "Login" button
   authButtons.innerHTML = `
       <a href="login.html" class="btn2" style="cursor: pointer">Login</a>
     `;
-
-  document
-    .querySelectorAll('[data-name="posts"], [data-name="my-posts"]')
-    .forEach((tab) => tab.remove());
 }
 
 document.getElementById("logout").addEventListener("click", (event) => {
@@ -104,4 +71,70 @@ document.getElementById("logout").addEventListener("click", (event) => {
     .slice(0, -1)
     .join("/");
   window.location.href = `${window.location.origin}${currentPath}/login.html`;
+});
+
+async function fetchPosts() {
+  const token = localStorage.getItem("token");
+  if (token) {
+    try {
+      const response = await fetch(`${CONFIG.SERVER_URL}/posts`, {
+        method: "GET",
+        headers: {
+          Authorization: `Bearer ${token}`, // Attach token if needed
+        },
+      }); // Replace with actual API URL
+      const { data: posts } = await response.json();
+
+      const gallery = document.querySelector(".gallery");
+      const tabs = document.getElementById("tabs");
+      const existingCategories = new Set();
+
+      posts.forEach((post) => {
+        const category = post.category;
+        existingCategories.add(category);
+        const postElement = document.createElement("div");
+        postElement.classList.add("images");
+        postElement.setAttribute("data-name", category);
+        postElement.innerHTML = `
+        <img src="${CONFIG.SERVER_URL + post.image}" alt="${post.title}" />
+        <div class="overlay">
+          <h4>${post.title}</h4>
+        </div>
+      `;
+        gallery.appendChild(postElement);
+      });
+
+      // Add new categories as tabs if they don't exist
+      existingCategories.forEach((category) => {
+        const categoryName = category.toUpperCase();
+        if (!tabs.querySelector(`[data-name="${categoryName}"]`)) {
+          tabs.innerHTML += `<span class="item-link" data-name="${categoryName}">${categoryName}</span>`;
+        }
+      });
+    } catch (error) {
+      console.error("Error fetching posts:", error);
+    }
+  }
+}
+
+window.addEventListener("DOMContentLoaded", async () => {
+  await fetchPosts();
+
+  let filterItem = document.querySelector(".items-links");
+  let filterImages = document.querySelectorAll(".images");
+  filterItem.addEventListener("click", (selectedItem) => {
+    if (selectedItem.target.classList.contains("item-link")) {
+      document.querySelector(".menu-active").classList.remove("menu-active");
+      selectedItem.target.classList.add("menu-active");
+      let filterName = selectedItem.target.getAttribute("data-name");
+      filterImages.forEach((image) => {
+        let filterImages = image.getAttribute("data-name");
+        if (filterImages.toUpperCase() == filterName.toUpperCase() || filterName == "all") {
+          image.style.display = "block";
+        } else {
+          image.style.display = "none";
+        }
+      });
+    }
+  });
 });
