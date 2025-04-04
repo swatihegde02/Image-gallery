@@ -5,19 +5,22 @@ const closePopup = document.getElementById("closePopup");
 const popupImageDesc = document.getElementById("popupImageDescription");
 const popupLikeButton = document.getElementById("popupLikeButton");
 // Get all gallery images and add event listeners
-const galleryItems = document.querySelectorAll(".images img");
+const galleryItems = document.querySelectorAll(".images");
 const likedContent = {};
 
 // When an image is clicked, show the popup with the larger image
 galleryItems.forEach((item) => {
   item.addEventListener("click", () => {
-    const imgSrc = imgElement.src; // Get the clicked image's source
-    popupImage.src = imgSrc; // Set the popup image's source to the clicked image
-    popupContainer.style.display = "flex"; // Show the popup
-    popupImageDesc.innerHTML =
-      "Lorem ipsum dolor sit amet consectetur adipisicing elit. Quo, ipsa adipisci vel deserunt enim minima qui perferendis dolor corrupti ipsum dicta similique eos facilis ex atque? Ut, saepe,";
-    if (likedContent[popupImage.src]) {
-      popupLikeButton.classList.add("liked");
+    const imgElement=item.querySelector("img");
+    if(imgElement){
+      const imgSrc = imgElement.src; // Get the clicked image's source
+      popupImage.src = imgSrc; // Set the popup image's source to the clicked image
+      popupContainer.style.display = "flex"; // Show the popup
+      popupImageDesc.innerHTML =
+        "Lorem ipsum dolor sit amet consectetur adipisicing elit. Quo, ipsa adipisci vel deserunt enim minima qui perferendis dolor corrupti ipsum dicta similique eos facilis ex atque? Ut, saepe,";
+      if (likedContent[popupImage.src]) {
+        popupLikeButton.classList.add("liked");
+      }
     }
   });
 });
@@ -26,16 +29,16 @@ popupLikeButton.addEventListener("click", () => {
   if (popupLikeButton.classList.contains("liked")) {
     popupLikeButton.classList.remove("liked");
     likedContent[popupImage.src] = false;
-  } else {
-    +popupLikeButton.classList.add("liked");
+  } else {+
+    popupLikeButton.classList.add("liked");
     likedContent[popupImage.src] = true;
   }
 });
 
 // Close the popup when the close button (&times;) is clicked
 closePopup.addEventListener("click", () => {
-  popupContainer.style.display = "none"; // Hide the popup
-  popupLikeButton.classList.remove("liked");
+    popupContainer.style.display = "none"; // Hide the popup
+    popupLikeButton.classList.remove("liked");
 });
 
 // // Close the popup if user clicks anywhere outside the image
@@ -63,7 +66,7 @@ if (token) {
     `;
 }
 
-document.getElementById("logout").addEventListener("click", (event) => {
+document.getElementById("logout")?.addEventListener("click", (event) => {
   localStorage.removeItem("token");
 
   const currentPath = window.location.pathname
@@ -138,3 +141,39 @@ window.addEventListener("DOMContentLoaded", async () => {
     }
   });
 });
+
+//searchbar functionality
+
+document.getElementById('searchForm').addEventListener('submit', function(event) {
+  event.preventDefault(); // Prevent form submission
+
+  const searchTerm = document.getElementById('srch').value.toLowerCase().trim();
+  const images = document.querySelectorAll('.images');
+  const noMatchMessage = document.getElementById('no-match-message');
+
+  let foundMatch = false;
+
+  // Hide no match message initially when a new search is made
+  noMatchMessage.style.display = 'none';
+
+  // Loop through all images and filter based on search term
+  images.forEach(image => {
+      const imageTitle = image.querySelector('h4').textContent.toLowerCase();
+      const imageCategory = image.getAttribute('data-name').toLowerCase();
+
+      // Check if the search term matches the title or category
+      if (imageTitle.includes(searchTerm) || imageCategory.includes(searchTerm)) {
+          image.style.display = 'block'; // Show the image
+          foundMatch = true;
+      } else {
+          image.style.display = 'none'; // Hide the image
+      }
+  });
+
+  // If no match was found, show the "no match" message
+  if (!foundMatch) {
+      noMatchMessage.style.display = 'block';
+  }
+});
+
+
